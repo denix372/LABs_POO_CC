@@ -19,22 +19,6 @@ public class ClockTime {
         this.minute = c.minute;
     }
 
-    public int getMinute() {
-        return minute;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
-    public int getHour() {
-        return hour;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
     public int time(){
         return 60*hour + minute;
     }
