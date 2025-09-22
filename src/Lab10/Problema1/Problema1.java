@@ -12,12 +12,12 @@ public class Problema1 extends JFrame {
         setLocationRelativeTo(null);
 
         Vector<Book> books = new Vector<>();
-        books.add(new Book("cppC/C++ ", "ProgrammingAuthor1", ""));
-        books.add(new Book("javaJava ", "ProgrammingAuthor2", ""));
-        books.add(new Book("csC# ", "ProgrammingAuthor3", ""));
-        books.add(new Book("iosIOS ", "ProgrammingAuthor4", ""));
-        books.add(new Book("wpWindows Phone ", "ProgrammingAuthor5", ""));
-        books.add(new Book("androidAndroid ", "ProgrammingAuthor6", ""));
+        books.add(new Book("C/C++ Programming", "Author1", "cpp"));
+        books.add(new Book("jJava Programming", "Author2", "java"));
+        books.add(new Book("C# Programming", "Author3", "cs"));
+        books.add(new Book("IOS Programming", "Author4", "ios"));
+        books.add(new Book("Windows Phone Programming", "Author5", "wp"));
+        books.add(new Book("Android Programming", "Author6", "android"));
         books.add(new Book("htmlHTML ", "ProgrammingAuthor7", ""));
         books.add(new Book("rustRUST ", "ProgrammingAuthor8", ""));
         books.add(new Book("pyPython ", "ProgrammingAuthor9", ""));

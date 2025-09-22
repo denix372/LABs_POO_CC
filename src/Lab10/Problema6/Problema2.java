@@ -31,12 +31,12 @@ public class Problema2 extends JFrame {
         infoPanel.add(authorField);
 
         DefaultListModel<Book> model = new DefaultListModel<>();
-        model.addElement(new Book("cppC/C++ ", "ProgrammingAuthor1", "cpp"));
-        model.addElement(new Book("javaJava ", "ProgrammingAuthor2", "java"));
-        model.addElement(new Book("csC# ", "ProgrammingAuthor3", "cs"));
-        model.addElement(new Book("iosIOS ", "ProgrammingAuthor4", "ios"));
-        model.addElement(new Book("wpWindows Phone ", "ProgrammingAuthor5", "wp"));
-        model.addElement(new Book("androidAndroid ", "ProgrammingAuthor6", "android"));
+        model.addElement(new Book("cppC/C++ Programming", "Author1", "cpp"));
+        model.addElement(new Book("javaJava Programming", "Author2", "java"));
+        model.addElement(new Book("csC# Programming", "Author3", "cs"));
+        model.addElement(new Book("iosIOS Programming", "Author4", "ios"));
+        model.addElement(new Book("wpWindows Phone Programming", "Author5", "wp"));
+        model.addElement(new Book("androidAndroid Programming", "Author6", "android"));
 
         listBook = new JList<>(model);
         listBook.setCellRenderer(new BookRenderer());
