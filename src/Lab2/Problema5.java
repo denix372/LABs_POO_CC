@@ -1,36 +1,44 @@
 package Lab2;
 
 public class Problema5 {
-    //Problemza replace all
-    String cenzurare(String s1, String[] s2) {
-        int ok = 1;
-        for(int i = 0 ; i< s2.length; i++) {
-            if( s1.contains(s2[i])) {
-                System.out.println("Text suspect");
-                ok = 1;
-                break;
-            }
-        }
-        if(ok == 0)
-            System.out.println("Nimic suspect");
-        else {
+    public String cenzurare(String s1, String[] s2) {
+        StringBuffer st = new StringBuffer();
+        boolean isSus = false;
 
-            for (int i = 0; i < s2.length; i++) {
-                String cuvant = s2[i];
 
-                if (cuvant.length() >= 2) {
-                    String cenzurat = cuvant.charAt(0) + "*".repeat(cuvant.length() - 2) + cuvant.charAt(cuvant.length() - 1);
-                    s1 = s1.replaceAll(cuvant, cenzurat);
+        for(String comp : s1.split(" ")) {
+            boolean isCensored = false;
+            for(String word : s2) {
+                if (comp.equals(word)) {
+                    isSus = true;
+                    isCensored = true;
+                    StringBuffer censored = new StringBuffer();
+
+                    censored.append(word.charAt(0));
+                    for (int i = 1; i < word.length() - 1; i++)
+                        if(i != word.length() - 2 )
+                            censored.append("* ");
+                        else
+                            censored.append("*");
+                    censored.append(word.charAt(word.length() - 1));
+
+                    st.append(censored);
                 }
             }
+            if(!isCensored)
+                st.append(comp);
+            st.append(" ");
         }
-        return s1;
+
+        if(isSus)
+            System.out.println("Text suspect");
+        else
+            System.out.println("Nimic suspect");
+        return st.toString();
     }
-
     public static void main(String[] args) {
-
         String text = "Un terorist avea o bomba";
-        String cuvinte[] = new String[2];
+        String[] cuvinte = new String[2];
         cuvinte[0] = "terorist";
         cuvinte[1] = "bomba";
         Problema5 prb5 = new Problema5();

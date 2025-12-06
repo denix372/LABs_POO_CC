@@ -1,70 +1,40 @@
 package Lab2;
-
 import java.util.Vector;
-
 public class Problema6 {
     public static void main(String[] args) {
         Vector v = new Vector();
-        v.add(7.5);
+        Vector<Integer> app = new Vector<>();
+        v.add(7.5); //default double
         v.add("String");
-        v.add(7.5);
-        v.add(7);
+        v.add((float)7.5);
+        v.add('c');
+        v.add("c"); //string
         v.add(true);
-        v.add('a');
-        v.add(3.14f);
+        v.add(5);
+        v.add((double)5);
 
-        Vector v_app = new Vector();
-        v_app.setSize(6);
-        for(int i=0; i < 6; i++) {
-            v_app.setElementAt(0,i);
-        }
+        for (int i = 0; i < 6; i++)
+            app.add(0);
 
-        for(int i=0; i < v.toArray().length; i++) {
-            if( v.get(i).getClass().equals( Integer.class) ){
-                int old = (int) v_app.get(0);
-                v_app.setElementAt(old + 1,0);
-            }
-            else if( v.get(i).getClass().equals( Double.class) ){
-                int old = (int) v_app.get(1);
-                v_app.setElementAt(old + 1,1);
-            }
-            else if( v.get(i).getClass().equals( Float.class) ){
-                int old = (int) v_app.get(2);
-                v_app.setElementAt(old + 1,2);
-            }
-            else if( v.get(i).getClass().equals( String.class) ){
-                int old = (int) v_app.get(3);
-                v_app.setElementAt(old + 1,3);
-            }
-            else if( v.get(i).getClass().equals( Character.class) ){
-                int old = (int) v_app.get(4);
-                v_app.setElementAt(old + 1,4);
-            }
-            else if( v.get(i).getClass().equals( Boolean.class) ){
-                int old = (int) v_app.get(5);
-                v_app.setElementAt(old + 1,5);
-            }
-        }
+        for (Object obj : v)
+            if (obj.getClass().equals(Integer.class))
+                app.set(0, app.get(0) + 1);
+            else if (obj.getClass().equals(Character.class))
+                app.set(1, app.get(1) + 1);
+            else if (obj.getClass().equals(String.class))
+                app.set(2, app.get(2) + 1);
+            else if (obj.getClass().equals(Double.class))
+                app.set(3, app.get(3) + 1);
+            else if (obj.getClass().equals(Float.class))
+                app.set(4, app.get(4) + 1);
+            else if (obj.getClass().equals(Boolean.class))
+                app.set(5, app.get(5) + 1);
 
-        for(int i=0; i < 6; i++) {
-            if( i == 0) {
-                System.out.println("Ints: " + v_app.get(i));
-            }
-            else if(i==1) {
-                System.out.println("Doubles: " + v_app.get(i));
-            }
-            else if(i==2) {
-                System.out.println("Floats: " + v_app.get(i));
-            }
-            else if(i==3) {
-                System.out.println("Strings: " + v_app.get(i));
-            }
-            else if(i==4) {
-                System.out.println("Chars: " + v_app.get(i));
-            }
-            else if(i==5) {
-                System.out.println("Booleans: " + v_app.get(i));
-            }
-        }
+        System.out.println("Integers: " + app.get(0));
+        System.out.println("Chars: " + app.get(1));
+        System.out.println("Strings: " + app.get(2));
+        System.out.println("Doubles: " + app.get(3));
+        System.out.println("Float: " + app.get(4));
+        System.out.println("Bools: " + app.get(5));
     }
 }
