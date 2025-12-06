@@ -1,48 +1,45 @@
 package Lab3.Problema3;
 
 public class MyQueue {
-    private static final int INFINIT = 9500;
-    private MyArray array;
-    private int front;
-    private int back;
-    private int size;
+    MyArray arr;
+    final int Infinit;
+    int first, last, size;
 
     public MyQueue() {
-        array = new MyArray(100);
-        front = 0;
-        back = 0;
+        arr = new MyArray();
+        Infinit = 9500;
+        first = 0;
+        last = 0;
         size = 0;
     }
 
-    public int getSize() {
+    int getSize() {
         return size;
     }
 
-    public void enqueue(int value) {
-        array.set(back, value);
-        back++;
+    void enqueue(int value) {
+        arr.set(last, value);
         size++;
+        last++;
     }
 
-    public int dequeue() {
-        if (isEmpty()) return INFINIT;
-        int val = array.get(front);
-        front++;
+    int dequeue() {
+        if (size == 0)
+            return Infinit;
         size--;
-        return val;
+        first++;
+        return arr.get(first - 1);
     }
-
-    public boolean isEmpty() {
+    
+    boolean isEmpty() {
         return size == 0;
     }
-
+    
     @Override
     public String toString() {
-        String rezultat = "Coada: ";
-        for (int i = front; i < back; i++) {
-            rezultat += array.get(i) + " ";
-        }
-        return rezultat.trim();
+        StringBuffer st = new StringBuffer();
+        for(int i = first; i < last; i++)
+            st.append(arr.get(i)).append(" ");
+        return st.toString();
     }
-
 }

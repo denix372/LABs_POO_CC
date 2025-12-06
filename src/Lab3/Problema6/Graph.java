@@ -1,53 +1,39 @@
 package Lab3.Problema6;
 
 public class Graph {
-    private static final int Infinit = 9500;
-    private int matrice[][];
-    private int n;
+    private int[][] matrice;
+    final int Infinit;
+    int n;
 
-    public Graph(int n){
-        this.n = n ;
-        this.matrice = new int[n+1][n+1];
+    public Graph(int n) {
+        this.n = n;
+        Infinit = 9500;
+        matrice = new int[n + 1][n + 1];
     }
 
-    public int getSize(){
-        int nr = 0;
-        for(int i = 0 ; i <= n; i++){
-            for(int j = i + 1 ; j <= n; j++){
-                if( matrice[i][j] != 0)
-                    nr++;
-            }
-        }
-        return nr;
+    int getSize() {
+        return n;
     }
 
-    public void addArc(int v, int w, int cost){
+    void addArc(int v, int w, int cost) {
         matrice[v][w] = cost;
     }
 
-    public boolean isArc(int v, int w){
-        if( matrice[v][w] != 0)
-            return true;
-        else return false;
+    boolean isArc(int v, int w) {
+        return matrice[v][w] != 0;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Graf orientat cu ").append(n).append(" noduri\n");
-        sb.append("Arce (v -> w : cost):\n");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrice[i][j] != 0) {
-                    sb.append((i + 1)).append(" -> ").append(j + 1)
-                            .append(" : ").append(matrice[i][j]).append("\n");
-                }
+        StringBuilder st = new StringBuilder();
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j ++) {
+                st.append(matrice[i][j]).append(" ");
             }
+            st.append('\n');
         }
-        return sb.toString();
+        return st.toString();
     }
-
-
     public int[][] floydWarshall() {
         int result[][];
         result = new int[n+1][n+1];
@@ -88,4 +74,6 @@ public class Graph {
         int [][] my_matrix = g.floydWarshall();
         System.out.println("distanta minima dintre nodurile 1 si 4 este "+ my_matrix[1][4]); // rezultat - 9
     }
+
+
 }

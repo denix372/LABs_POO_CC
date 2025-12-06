@@ -1,30 +1,22 @@
 package Lab3.Problema7;
 
 public class Schedule {
-    ClockTime departure;
-    ClockTime arrival;
+    private ClockTime departure, arrival;
 
-    public Schedule(){
-        this.departure = new ClockTime();
-        this.arrival = new ClockTime();
+    public Schedule(ClockTime departure, ClockTime arrival) {
+        this.departure = departure;
+        this.arrival = arrival;
     }
 
-    public Schedule(ClockTime departure, ClockTime arrival){
-        this.departure = new ClockTime(departure);
-        this.arrival = new ClockTime(arrival);
+    public ClockTime getDeparture() {
+        return departure;
     }
 
-
-    public Schedule(Schedule schedule){
-        this.departure = schedule.departure;
-        this.arrival = schedule.arrival;
+    public ClockTime getArrival() {
+        return arrival;
     }
 
-    //metodă care calculează durata călătoriei în minute
-    public int time(){
-        if( arrival.compare(departure) > 0 )
-                return arrival.time() - departure.time();
-        else return  departure.time() - arrival.time();
+    public int getTime() {
+        return arrival.getTime() - departure.getTime();
     }
-
 }
