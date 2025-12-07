@@ -1,6 +1,6 @@
 package Lab4.Problema3;
 
-class Test3 {
+public class Test3 {
     public static void main(String args[]) {
         HSet set = new HSet();
         set.add("Laborator");

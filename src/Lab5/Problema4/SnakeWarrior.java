@@ -1,6 +1,6 @@
-package com.POOCC.lab05;
+package Lab5.Problema4;
 
-public class SnakeWarrior extends Warrior {
+public class SnakeWarrior extends Warrior{
     public SnakeWarrior(int health, String name) {
         super(health, name);
     }

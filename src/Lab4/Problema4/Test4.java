@@ -1,6 +1,6 @@
 package Lab4.Problema4;
 
-class Test4 {
+public class Test4 {
     public static void main(String args[]) {
         Person student, teacher, person;
         student = new Student("Popescu Ion", "Bucuresti");

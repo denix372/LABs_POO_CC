@@ -1,29 +1,20 @@
 package Lab4.Problema2;
 
-import java.util.Collections;
-import java.util.Vector;
-
-//prin mostenire
-public class SortedArray extends Array{
-    public SortedArray(){
+public class SortedArray extends Array {
+    public SortedArray() {
         super();
     }
 
     @Override
     public void addElement(Integer x) {
         super.addElement(x);
-        sort();
+        super.sort();
     }
 
+    // nu are sens pentru un vector sortat, dar o supradefinim sa ifm sigur ca nu incurca
     @Override
-    public String toString() {
-        String result = "{";
-        for(int i = 0; i < getSize(); i++) {
-            result += get(i) + ", ";
-        }
-        result += "}";
-        return result;
+    public void addElement(Integer x, int poz) {
+        super.addElement(x);
+        super.sort();
     }
-
-
 }

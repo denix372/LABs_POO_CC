@@ -1,22 +1,35 @@
 package Lab6.Problema5;
 
-public class CalatoriB extends Vagon {
-    public CalatoriB(){
-        super(50,400);
+public class CalatoriB extends Vagon{
+    int pasageri;
+
+    public CalatoriB() {
+        pasageri = 50;
+        colete = 400;
+        deschidereUsi();
+        inchidereUsi();
+        blocareGeamuri();
+    }
+
+    public void deschidereUsi() {
+        System.out.println("Usile s-au deschis automat");
+    }
+
+    public void inchidereUsi() {
+        System.out.println("Usile s-au inschis automat");
+    }
+
+    public void blocareGeamuri() {
+        System.out.println("Geamurile s-au blocat");
     }
 
     @Override
-    public void deschideUsi() {
-        System.out.println("CalatoriB: Usile se deschi automat.");
+    public int getColete() {
+        return 400;
     }
 
     @Override
-    public void inchideUsi() {
-        System.out.println("CalatoriB: Usile se inchid automat.");
-    }
-
-    @Override
-    public void blocheazaGeamuri() {
-        System.out.println("CalatoriB: Geamurile au fost blocate automat.");
+    public String toString() {
+        return "CalatoriB: 400 colete";
     }
 }

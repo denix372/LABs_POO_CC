@@ -1,4 +1,4 @@
-/*
+package Lab6.Problema4.director.fisiere_java;/*
  Java program with the name RunMe that will take input from the keyboard and will count the number
  of elements that are numbers(int) and the number of elements that are not numbers. The count will stop
  when we give as an input zero 0. Then the programm will display the results and will terminate.

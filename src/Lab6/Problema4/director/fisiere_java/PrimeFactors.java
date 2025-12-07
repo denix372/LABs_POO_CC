@@ -1,4 +1,4 @@
-/*
+package Lab6.Problema4.director.fisiere_java;/*
 Java program that asks the user for an integer and then prints out all its prime factors.
  For example, when the user enters 150, the program should print: 2 3 5 5
 */

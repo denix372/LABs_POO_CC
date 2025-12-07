@@ -1,17 +1,26 @@
 package Lab6.Problema5;
 
-public class Marfa extends Vagon {
+public class Marfa extends Vagon{
+
     public Marfa() {
-        super(0, 400);
+        colete = 400;
+    }
+
+    public void deschidereUsi() {
+        System.out.println("Usile s-au deschis manual");
+    }
+
+    public void inchidereUsi() {
+        System.out.println("Usile s-au inchis manual");
     }
 
     @Override
-    public void deschideUsi() {
-        System.out.println("Marfa: Usile se deschid manual.");
+    public int getColete() {
+        return 400;
     }
 
     @Override
-    public void inchideUsi() {
-        System.out.println("Marfa: Usile se inchid manual.");
+    public String toString() {
+        return "Marfa: 400 colete";
     }
 }

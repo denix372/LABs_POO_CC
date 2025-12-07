@@ -3,22 +3,29 @@ package Lab4.Problema4;
 import java.util.Vector;
 
 public class Teacher extends Person{
-    Vector courses;
-
-    public Teacher(String name, String address){
+    Vector<String> courses;
+    public Teacher(String name, String address) {
         super(name, address);
+    }
+
+    public boolean addCourse(String course) {
+        if(!courses.contains(course)) {
+            courses.add(course);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeCourse(String course) {
+        if(courses.contains(course)) {
+            courses.remove(course);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return "Profesorul are numele: " + name;
-    }
-
-    public boolean addCourse(String course){
-        return courses.add(course);
-    }
-
-    public boolean removeCourse(String course){
-        return courses.remove(course);
+        return super.toString();
     }
 }

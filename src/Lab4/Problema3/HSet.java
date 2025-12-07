@@ -2,22 +2,26 @@ package Lab4.Problema3;
 
 import java.util.Hashtable;
 
-public class HSet extends Hashtable {
-
-    public HSet(){
+public class HSet extends Hashtable<Object, Object> {
+    public HSet() {
         super();
     }
 
-    public boolean add(Object key) {
-        return super.put(key, Boolean.TRUE) == null;
+    //Adauga un element in multime, daca nu exista deja
+    public boolean add(Object value) {
+        if(!this.containsKey(value)) {
+            this.put(value, value);
+            return true;
+        }
+        return false;
     }
 
-    @Override
+    //Sterge perechea corespunzatoare cheii, intorcand valoarea
     public Object remove(Object key) {
         return super.remove(key);
     }
 
-    @Override
+    //returneaza un String cu elementele multimii (doar cheile, nu perechi)
     public String toString() {
         return this.keySet().toString();
     }

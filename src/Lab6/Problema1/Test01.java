@@ -1,10 +1,11 @@
-package Lab6.Problema1;/*
+/*
  * Programare orientata pe obiecte
  * Seria CC
  * Laboratorul 6
  * 
  */
 
+package Lab6.Problema1;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 

@@ -1,17 +1,32 @@
 package Lab6.Problema5;
 
 public class CalatoriA extends Vagon{
+    int pasageri;
+
     public CalatoriA() {
-        super(40,300);
+        pasageri = 40;
+        colete = 300;
+        deschidereUsi();
+        inchidereUsi();
+    }
+
+    public void deschidereUsi() {
+        System.out.println("Usile s-au deschis automat");
+    }
+
+    public void inchidereUsi() {
+        System.out.println("Usile s-au inschis automat");
     }
 
     @Override
-    public void deschideUsi() {
-        System.out.println("CalatoriA: Usile se deschid automat.");
+    public int getColete() {
+        return 300;
     }
 
     @Override
-    public void inchideUsi() {
-        System.out.println("CalatoriA: Usile se inchid automat.");
+    public String toString() {
+        return "CalatoriA: 300 colete";
     }
+
+
 }

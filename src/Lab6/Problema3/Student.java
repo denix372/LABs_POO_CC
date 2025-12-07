@@ -1,32 +1,30 @@
 package Lab6.Problema3;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collections;
 
-public class Student implements Persoana{
+public class Student implements Persoana {
     private String nume;
-    private Vector<Double> medii = new Vector<>();
+    ArrayList<Double> note = new ArrayList<>();
 
-    public Student(String nume, Vector<Double> medii) {
+    public Student(String nume) {
         this.nume = nume;
-        this.medii = new Vector<>(medii);
     }
 
-    public Vector<Double> getMedii() {
-        return medii;
+    public ArrayList<Double> getNote() {
+        return note;
     }
 
-    public void setMedii(Vector<Double> medii) {
-        this.medii = medii;
+    public void setNote(ArrayList<Double> note) {
+        this.note = note;
     }
 
     @Override
     public double calculMedieGenerala() {
-        if (medii.isEmpty())
-            return 0;
         double sum = 0;
-        for(double m : medii)
-            sum += m;
-        return sum/medii.size();
+        for(Double nota : note)
+            sum += nota;
+        return sum/note.size();
     }
 
     @Override
@@ -41,27 +39,17 @@ public class Student implements Persoana{
 
     @Override
     public void addMedie(double medie) {
-        medii.add(medie);
+        note.add(medie);
+        Collections.sort(note);
     }
 
     @Override
-    public int compareTo(Object o) {
-        Persoana p = (Persoana) o;
-        int cmp = this.getNume().compareTo(p.getNume());
-        if(cmp!=0)
-            return cmp;
-        return Double.compare(p.calculMedieGenerala(), this.calculMedieGenerala());
-    }
-
-    @Override
-    public String toString() {
-        String str = "";
-        for(int i = 0; i < medii.size(); i ++) {
-            if(i != medii.size() - 1)
-                str +=  medii.get(i) + ", ";
-            else
-                str +=  medii.get(i);
-        }
-        return "\nNume: " + nume + "\nMedii:{ " + str + " }\n";
+    public int compareTo(Object obj) {
+        if (!(obj instanceof Student))
+            return -1;
+        Student st2 = (Student)obj;
+        if(getNume().compareTo(st2.getNume()) != 0)
+            return getNume().compareTo(st2.getNume());
+        return (int)(st2.calculMedieGenerala() - calculMedieGenerala());
     }
 }

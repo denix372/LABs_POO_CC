@@ -1,6 +1,6 @@
 package Lab4.Problema1;
 
-class Patrulater {
+public class Patrulater {
     public int latura1, latura2, latura3, latura4;
     public double unghi1, unghi2, unghi3, unghi4;
 

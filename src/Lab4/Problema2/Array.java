@@ -1,7 +1,6 @@
 package Lab4.Problema2;
-
-import java.util.Collections;
 import java.util.Vector;
+import java.util.Collections;
 
 public class Array {
     //Vectorul in care se vor retine elementele

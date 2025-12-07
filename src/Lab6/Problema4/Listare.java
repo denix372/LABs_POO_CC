@@ -5,9 +5,9 @@ import java.io.*;
 public class Listare {
     public static void main(String[] args) {
         try {
-            File director = new File("Lab6/Arhiva6/director");
+            File director = new File("Lab6/Problema4/director");
 
-            Filtru filtru = new Filtru("Lab6/Arhiva6/extension.in", "Lab6/Arhiva6/words.in");
+            Filtru filtru = new Filtru("Lab6/Problema4/extension.in", "Lab6/Problema4/words.in");
 
             afiseazaRecursiv(director, filtru);
 

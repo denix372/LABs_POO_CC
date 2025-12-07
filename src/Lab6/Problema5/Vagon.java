@@ -1,31 +1,15 @@
 package Lab6.Problema5;
 
-public abstract class Vagon {
-    int capacitateColete;
-    int capacitatePasageri;
-
-    public Vagon(int capacitatePasageri, int capacitateColete) {
-        this.capacitateColete = capacitateColete;
-        this.capacitatePasageri = capacitatePasageri;
-    }
-
-    public int getCapacitateColete() {
-        return capacitateColete;
-    }
-
-    public int getCapacitatePasageri() {
-        return capacitatePasageri;
-    }
-    public abstract void deschideUsi();
-    public abstract void inchideUsi();
-
-    public void blocheazaGeamuri() {
-        System.out.println("Acest vagon nu are geamuri blocabible.");
-    }
+public abstract class Vagon implements Comparable{
+    int colete;
+    boolean usi;
+    public abstract int getColete();
 
     @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + " [pasageri="
-                + capacitatePasageri + ", colete=" + capacitateColete + "]";
+    public int compareTo(Object obj) {
+        if(!(obj instanceof Vagon))
+            return -1;
+        Vagon v = (Vagon)obj;
+        return getColete() - v.getColete();
     }
 }

@@ -1,18 +1,18 @@
 package Lab6.Problema1;
 
-public class Rectangle extends Shape{
-    private double width, length;
+public class Rectangle extends Shape {
+    double width;
+    double length;
 
-    public Rectangle(){
-        super();
-        this.width = 1.0;
-        this.length = 1.0;
+    
+    public Rectangle() {
+        this(0,0);
     }
 
     public Rectangle(double width, double length) {
         super();
-        this.width = width;
         this.length = length;
+        this.width = width;
     }
 
     public Rectangle(double width, double length, String color, boolean filled) {
@@ -25,8 +25,8 @@ public class Rectangle extends Shape{
         return width;
     }
 
-    public void setWidth(double witdh) {
-        this.width = witdh;
+    public void setWidth(double width) {
+        this.width = width;
     }
 
     public double getLength() {
@@ -38,19 +38,20 @@ public class Rectangle extends Shape{
     }
 
     @Override
-    public double getArea() {
-        return this.length * this.width;
+    public double getPerimeter() {
+        return 2 * width + 2 * length;
     }
 
     @Override
-    public double getPerimeter() {
-        return 2 * this.length + 2 * this.width;
+    public double getArea() {
+        return width * length;
     }
 
     @Override
     public String toString() {
-        return "Rectangle with width: " + this.width + "\n length: "
-                + this.length + "\n color:" + getColor() + "\n filled:"
-                + isFilled();
+        return "Rectangle with width: " + width +
+                "\nlength: " + length +
+                "\ncolor: " + getColor() +
+                "\nfilled " + isFilled();
     }
 }

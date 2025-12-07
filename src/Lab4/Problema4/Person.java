@@ -1,19 +1,19 @@
 package Lab4.Problema4;
 
 public class Person {
-    String name, address;
+    private String name;
+    private String address;
 
-    public Person(){
-        name = "";
-        address = "";
-    }
-
-    public Person(String name, String address){
+    public Person(String name, String addres) {
         this.name = name;
-        this.address = address;
+        this.address = addres;
     }
 
-    public String getAddress() {
+    public String getName() {
+        return name;
+    }
+
+    public String getAddres() {
         return address;
     }
 
@@ -21,16 +21,8 @@ public class Person {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return "Persoana are numele: " + name ;
+        return "Nume: " + name + "\nAddress: " + address;
     }
 }

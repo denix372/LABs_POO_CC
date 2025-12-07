@@ -1,11 +1,9 @@
 package Lab6.Problema1;
 
-public class Circle extends Shape {
-    private double radius;
-
+public class Circle extends Shape{
+    double radius;
     public Circle() {
-        super();
-        this.radius = 1;
+        this(0);
     }
 
     public Circle(double radius) {
@@ -27,18 +25,19 @@ public class Circle extends Shape {
     }
 
     @Override
-    public double getArea(){
-        return this.radius * this.radius * 3.14159;
+    public double getPerimeter() {
+        return 2 * 3.141592 * radius;
     }
 
     @Override
-    public double getPerimeter(){
-        return 2 * this.radius * 3.14159;
+    public double getArea() {
+        return 3.141592 * radius * radius;
     }
 
     @Override
     public String toString() {
         return "Circle with radius: " + radius +
-                "\n color: " + getColor() + "\n filled: " + isFilled();
+                "\ncolor: " + super.getColor() +
+                "\nfilled: " + super.isFilled();
     }
 }

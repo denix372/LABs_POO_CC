@@ -1,3 +1,5 @@
+package Lab5.Problema2;
+
 public class MyList {
     private Node head;
     private int size;

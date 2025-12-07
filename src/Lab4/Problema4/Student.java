@@ -1,49 +1,36 @@
 package Lab4.Problema4;
-
 import java.util.Vector;
 
-public class Student extends Person{
-    Vector courses;
-    Vector grades;
+public class Student extends Person {
+    Vector<String> courses;
+    Vector<Integer> grades;
 
-    public Student(){
-        super();
+    public Student(String name, String address) {
+        super(name, address);
         courses = new Vector<>();
         grades = new Vector<>();
     }
 
-    public Student(String name, String address){
-        super(name, address);
-        courses = new Vector();
-        grades = new Vector();
+    public void addCourseGrade(String course, int grade) {
+        courses.add(course);
     }
 
-    public void addCourseGrade(String course, int grade){
-        courses.add(course);
-        grades.add(grade);
+    public void printGrades() {
+        for(String course : courses) {
+            System.out.print(course + ", ");
+        }
+        System.out.println();
+    }
+
+    public double getAverageGrade() {
+        double sum = 0;
+        for(int grade : grades)
+            sum += grade;
+        return sum/(grades.size());
     }
 
     @Override
     public String toString() {
-        return "Studentul are numele: " + name;
+        return super.toString();
     }
-
-    public void printGrades(){
-        String nr = "Notele studentului "+ name + " sunt:\n";
-        for(int i = 0 ; i < grades.size(); i++){
-            nr += courses.elementAt(i) + ": ";
-            nr += grades.elementAt(i) + "\n";
-        }
-        System.out.println(nr);
-    }
-
-    public double getAverageGrade(){
-        double sum = 0 ;
-        for(int i = 0 ; i < grades.size(); i++){
-            sum += (double)grades.elementAt(i);
-        }
-        return sum/grades.size();
-    }
-
-
 }

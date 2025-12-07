@@ -1,4 +1,4 @@
-
+package Lab5.Problema2;
 
 /**
  * Clasa folosita pentru testarea problemei 2
