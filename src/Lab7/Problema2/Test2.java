@@ -1,35 +1,48 @@
 package Lab7.Problema2;
 
-import java.util.*;
+import java.util.Iterator;
 
-class Test2 {
-	public static void main(String[] args) {
-		LinkedSet set = new LinkedSet();
-		
-		for(int i = 5; i >= 0; i--){
-			set.add(i);
-			set.add(2 * i);
-			set.add(3 * i);
-		}
-		
-		Collections.sort(set);
-		System.out.println("Got: " + set + " Correct: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15]");
-		
-		for(int i = 4; i <= 8; i++){
-			set.set(i,set.get(i-4));
-		}
-		Collections.sort(set);
-		System.out.println("Got: " + set + " Correct: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15]");
-		
-		//let's add to nowhere, same should be 
-		try{
-			set.add(100, 42);
-		}catch(IndexOutOfBoundsException e){
-			System.out.println("Good job! Exception! ");
-                        System.out.println("Got: " + set + " Correct: [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15]");
-			return;
-		}
-		System.out.println("Where's my Exception? :(");
-		
-	}
+
+public class Test2 {
+    public static void main(String[] args) {
+        LinkedSet s = new LinkedSet();
+
+        // 1) add(Object) — unicitate + ordinea inserarii
+        System.out.println("add A -> " + s.add("A"));
+        System.out.println("add A -> " + s.add("A"));
+        s.add("B");
+        s.add("C");
+        System.out.println("Set: " + s);
+
+        // 2) add(int, Object) — nu insereaza duplicate
+        s.add(1, "X");
+        s.add(2, "B");
+        System.out.println("Dupa add(index,...): " + s);
+
+        // 3) set(int, Object) — blocare daca ar crea duplicat
+        try {
+            s.set(0, "B");
+            System.out.println("SET REUSIT (NU AR TREBUI)");
+        } catch (IllegalArgumentException ex) {
+            System.out.println("set duplicat blocat: " + ex.getMessage());
+        }
+
+        Object old = s.set(1, "Z");
+        System.out.println("set(1,'Z') a inlocuit: " + old);
+        System.out.println("Dupa set legal: " + s);
+
+        // 4) iterator().remove() — eliminare in timpul parcurgerii
+        Iterator it = s.iterator();
+        while (it.hasNext()) {
+            Object e = it.next();
+            if ("Z".equals(e)) it.remove();
+        }
+        System.out.println("Dupa iterator.remove(Z): " + s);
+
+        // 5) equals/hashCode ca Set (ordine ignorata)
+        LinkedSet t = new LinkedSet();
+        t.add("C"); t.add("A"); t.add("B");
+        System.out.println("equals ca Set (true): " + s.equals(t));
+        System.out.println("hashCode s/t: " + s.hashCode() + " / " + t.hashCode());
+    }
 }

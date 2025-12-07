@@ -1,149 +1,170 @@
 package Lab7.Problema3;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.SortedSet;
 
-public class SListSet<E> implements SortedSet<E> {
-    private final LinkedList<E> list = new LinkedList<>();
-    private Comparator<? super E> comparator;
-
+public class SListSet extends LinkedList<Object> implements SortedSet<Object> {
+    private Comparator<Object> cmp;
     public SListSet() {
-        this.comparator = null; // sortare naturală
+        this(null);
     }
 
-    public SListSet(Comparator<? super E> comparator) {
-        this.comparator = comparator;
-    }
-
-    @Override
-    public Comparator<? super E> comparator() {
-        return comparator;
+    public SListSet(Comparator cmp) {
+        this.cmp = cmp;
     }
 
     @Override
-    public boolean add(E o) {
-        if (list.contains(o))
-            return false;
-        list.add(o);
-        sortList();
-        return true;
+    public Comparator comparator() { //comparator folosit (null pentru comparatia naturală)
+        return cmp;
     }
 
-    private void sortList() {
-        list.sort(comparator);
-    }
+    public boolean add(Object o) { //adaugă un elemnt în mulțime dacă nu există deja și sortează mulțimea
+        if( o == null)
+            throw new IllegalArgumentException("Nu se accepta null");
 
-    @Override
-    public E first() {
-        if (list.isEmpty())
-            throw new NoSuchElementException();
-        return list.getFirst();
-    }
+        if(cmp == null && !(o instanceof Comparable))
+            throw new ClassCastException("Comparator null");
 
-    @Override
-    public E last() {
-        if (list.isEmpty())
-            throw new NoSuchElementException();
-        return list.getLast();
-    }
+        int i = 0;
+        for(Object obj : this) {
+            int comp;
+            if(cmp != null)
+                comp = cmp.compare(o, obj);
+            else
+                comp = ((Comparable) o ).compareTo(obj);
 
-    @Override
-    public SortedSet<E> subSet(E fromElement, E toElement) {
-        SListSet<E> subset = new SListSet<>(comparator);
-        for (E e : list) {
-            if (compare(e, fromElement) >= 0 && compare(e, toElement) < 0) {
-                subset.add(e);
+            if(comp == 0) //duplicat
+                return false;;
+
+            if(comp < 0) {
+                super.add(i, o);
+                return true;
             }
+            i++;
+        }
+        return super.add(o);
+    }
+
+    @Override
+    public Object first() { //primul obiect din mulțime
+        if(isEmpty())
+            throw  new NoSuchElementException();
+        return getFirst();
+    }
+
+    @Override
+    public Object last() { // ultimul obiect din mulțime
+        if(isEmpty())
+            throw  new NoSuchElementException();
+        return getLast();
+    }
+
+    @Override
+    public SortedSet subSet(Object from, Object to) { // copie ordonată a intervalului [from, to)
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("Capetele intervalului nu pot fi null");
+        }
+        if (cmp == null) {
+            if (!(from instanceof Comparable) || !(to instanceof Comparable)) {
+                throw new ClassCastException("Capetele intervalului trebuie să fie Comparable dacă comparatorul este null");
+            }
+        }
+
+        SListSet subset = new SListSet(cmp);
+        for (Object obj : this) {
+            int compFrom;
+            int compTo;
+
+            if (cmp != null) {
+                compFrom = cmp.compare(obj, from);
+                compTo = cmp.compare(obj, to);
+            } else {
+                compFrom = ((Comparable) obj).compareTo(from);
+                compTo = ((Comparable) obj).compareTo(to);
+            }
+
+            if (compFrom >= 0 && compTo < 0)
+                subset.add(obj);
         }
         return subset;
     }
 
     @Override
-    public SortedSet<E> headSet(E toElement) {
-        SListSet<E> head = new SListSet<>(comparator);
-        for (E e : list) {
-            if (compare(e, toElement) < 0)
-                head.add(e);
+    public SortedSet headSet(Object to) { // copie ordonată a intervalului (primul_element, to)
+        if (to == null) {
+            throw new IllegalArgumentException("Capătul intervalului nu poate fi null");
+        }
+        if (cmp == null && !(to instanceof Comparable)) {
+            throw new ClassCastException("Capătul intervalului trebuie să fie Comparable dacă comparatorul este null");
+        }
+
+        SListSet head = new SListSet(cmp);
+        for (Object obj : this) {
+            int compTo;
+            if (cmp != null)
+                compTo = cmp.compare(obj, to);
+            else
+                compTo = ((Comparable) obj).compareTo(to);
+
+
+            if (compTo < 0)
+                head.add(obj);
         }
         return head;
     }
 
     @Override
-    public SortedSet<E> tailSet(E fromElement) {
-        SListSet<E> tail = new SListSet<>(comparator);
-        for (E e : list) {
-            if (compare(e, fromElement) >= 0)
-                tail.add(e);
+    public SortedSet tailSet(Object from) { // copie ordonată a intervalului [from, ultimul_element)
+        if (from == null) {
+            throw new IllegalArgumentException("Capătul intervalului nu poate fi null");
         }
+        if (cmp == null && !(from instanceof Comparable)) {
+            throw new ClassCastException("Capătul intervalului trebuie să fie Comparable dacă comparatorul este null");
+        }
+
+        SListSet tail = new SListSet(cmp);
+        for (Object obj : this) {
+            int compFrom;
+            if (cmp != null)
+                compFrom = cmp.compare(obj, from);
+            else
+                compFrom = ((Comparable) obj).compareTo(from);
+
+            if (compFrom >= 0) {
+                tail.add(obj);
+            }
+        }
+
         return tail;
     }
 
-    private int compare(E a, E b) {
-        if (comparator != null) return comparator.compare(a, b);
-        return ((Comparable<? super E>) a).compareTo(b);
-    }
-
-    // Metode din Set care trebuie implementate
     @Override
-    public int size() {
-        return list.size();
-    }
+    public SListSet reversed() { // întoarce o copie a mulțimii ordonată descrescător, construită pe baza comparatorului curent (dacă există) sau a ordinii naturale; populați exclusiv din elementele setului curent, fără recitirea fișierului și fără sortări/inversări externe.
+        Comparator<Object> reversedCmp;
 
-    @Override
-    public boolean isEmpty() {
-        return list.isEmpty();
-    }
-
-    @Override
-    public boolean contains(Object o) {
-        return list.contains(o);
-    }
-
-    @Override
-    public Iterator<E> iterator() {
-        return list.iterator();
-    }
-
-    @Override
-    public Object[] toArray() {
-        return list.toArray();
-    }
-
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return list.toArray(a);
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return list.remove(o);
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return list.containsAll(c);
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends E> c) {
-        boolean modified = false;
-        for (E e : c) {
-            if (add(e)) modified = true;
+        if (cmp != null) {
+            reversedCmp = new Comparator<Object>() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    return cmp.compare(o2, o1); // inversăm ordinea comparatorului curent
+                }
+            };
+        } else {
+            reversedCmp = new Comparator<Object>() {
+                @Override
+                public int compare(Object o1, Object o2) {
+                    return ((Comparable) o2).compareTo(o1); // inversăm ordinea naturală
+                }
+            };
         }
-        return modified;
-    }
 
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return list.retainAll(c);
-    }
+        SListSet reversedSet = new SListSet(reversedCmp);
+        for (Object obj : this) {
+            reversedSet.add(obj);
+        }
 
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return list.removeAll(c);
-    }
-
-    @Override
-    public void clear() {
-        list.clear();
+        return reversedSet;
     }
 }
