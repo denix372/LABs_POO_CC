@@ -14,12 +14,11 @@ public class Task2 {
 
         Catalog catalog2 = new Catalog(new Comparator<Catalog.Student>() {
             @Override
-            public int compare(Catalog.Student o1, Catalog.Student o2) {
+            public int compare(Catalog.Student s1, Catalog.Student s2) {
                 // TODO: Sort by average (descending) and by name (ascending).
-                int r = Double.compare(o2.media, o1.media);
-                if (r == 0)
-                    r = o1.name.compareTo(o2.name);
-                return r;
+                if (s1.getMedia() != s2.getMedia())
+                    return Double.compare(s2.getMedia(), s1.getMedia());
+                return s1.getName().compareTo(s2.getName());
             }
         });
         catalog2.addAll(catalog);
@@ -34,7 +33,7 @@ public class Task2 {
                 last = o;
                 continue;
             }
-            int r = last.media != o.media ? Double.compare(last.media, o.media) : last.name.compareTo(o.name);
+            int r = last.media != o.media ?  Double.compare(last.media,o.media) : last.name.compareTo(o.name);
             if (r != last.compareTo(o)) {
                 System.err.println("Catalog.Student.compareTo a fost implementata gresit.");
             }

@@ -4,7 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class Task1 {
-    public static void main(String[] args) {
+
+    public static void main(String args[]) {
         ArrayMap<Integer, String> map = new ArrayMap<>();
 
         System.out.println("Populam colectia...");

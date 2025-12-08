@@ -1,67 +1,68 @@
 package Lab8.Problema4;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class Table {
+    Vector<Vector<Object>> rows = new Vector<>();
 
-    private Vector<Vector<Object>> data;
-
-    public Table(Object[][] rows) {
-        data = new Vector<>();
-        for(Object[] row : rows) {
-            Vector<Object> r = new Vector<>(Arrays.asList(row));
-            data.add(r);
+    public Table(Object[][] data) {
+        for (Object[] row : data) {
+            rows.add(new Vector<>(Arrays.asList(row)));
         }
     }
 
     public interface Printer {
-        void print(Vector<Vector<Object>> data);
+        void print(Vector<Vector<Object>> rows);
     }
 
     public void print(Printer p) {
-        p.print(data);
+        p.print(rows);
     }
 
-    public class CsvPrinter implements Printer {
-        private String delimiter = ",";
+    class AsciiPrinter implements Printer{
+        private int[] cols;
 
-        @Override
-        public void print(Vector<Vector<Object>> data) {
-            for(Vector<Object> row: data) {
-                for (int i = 0; i < row.size(); i++) {
-                    System.out.print(row.get(i));
-                    if( i < row.size() - 1)
-                        System.out.print(delimiter);
-                }
-                System.out.println();
-            }
-        }
-    }
-
-    public class AsciiPrinter implements Printer {
-        private int[] columnWidths;
-
-        public AsciiPrinter(int[] columnWidths) {
-            this.columnWidths = columnWidths;
+        public AsciiPrinter(int[] cols) {
+            this.cols = cols;
         }
 
         @Override
-        public void print(Vector<Vector<Object>> data) {
-            for(Vector<Object> row: data) {
+        public void print(Vector<Vector<Object>> rows) {
+            for (Vector<Object> row : rows) {
                 for (int i = 0; i < row.size(); i++) {
-                    String cell = row.get(i).toString();
-                    System.out.print(pad(cell, columnWidths[i]));
-                    if (i < row.size() - 1)
-                        System.out.print("|");
+                    String cell = String.valueOf(row.get(i));
+
+                    System.out.format("%-" + cols[i] + "s", cell);
+                    if (i < row.size() -1 )
+                        System.out.print("| ");
                 }
                 System.out.println("|");
             }
         }
-        private String pad(String text, int width) {
-            if (text.length() > width) {
-                return text.substring(0, width);
+    }
+
+    class CsvPrinter implements Printer {
+        private String delimiter;
+
+        public CsvPrinter() {
+            this.delimiter = ",";
+        }
+
+        public CsvPrinter(String delimiter) {
+            this.delimiter = delimiter;
+        }
+
+        @Override
+        public void print(Vector<Vector<Object>> rows) {
+            for (Vector<Object> row : rows) {
+                for(int i = 0; i < row.size(); i++) {
+                    System.out.print(row.get(i));
+                    if ( i < row.size() - 1)
+                        System.out.print(delimiter);
+                }
+                System.out.println();
             }
-            return String.format("%-" + width + "s", text);
         }
     }
 }

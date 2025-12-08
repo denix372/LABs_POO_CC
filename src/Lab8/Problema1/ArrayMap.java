@@ -3,32 +3,10 @@ package Lab8.Problema1;
 import java.util.*;
 
 public class ArrayMap<K, V> extends AbstractMap<K, V> {
-    private final List<ArrayMapEntry<K, V>> entries = new ArrayList<>();
 
-    @Override
-    public Set entrySet() {
-        return new HashSet<>(entries);
-    }
+    private ArrayList<ArrayMapEntry<K, V>> dict = new ArrayList<>();
 
-    @Override
-    public int size() {
-        return entries.size();
-    }
-
-    @Override
-    public V put(K key, V value) {
-        for (ArrayMapEntry<K, V> entry: entries) {
-            if (Objects.equals(entry.getKey(), key)) {
-                V oldValue = entry.getValue();
-                entry.setValue(value);
-                return oldValue;
-            }
-        }
-        entries.add(new ArrayMapEntry<>(key, value));
-        return null;
-    }
-
-    public static class ArrayMapEntry<K, V> implements Map.Entry<K, V> {
+    public class ArrayMapEntry<K, V> implements Map.Entry<K, V> {
         private K key;
         private V value;
 
@@ -37,44 +15,50 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> {
             this.value = value;
         }
 
-        @Override
         public K getKey() {
             return key;
         }
-
-        public void setKey(K key) {
-            this.key = key;
-        }
-
-        @Override
         public V getValue() {
             return value;
         }
-
-        @Override
         public V setValue(V value) {
+            V old = this.value;
             this.value = value;
-            return value;
+            return old;
         }
 
-        @Override
         public String toString() {
-            return "Key: " + key + ", Value: " + value;
+            return "Key: " + key + "Value: " + value;
         }
 
-        @Override
-        public boolean equals(Object obj) {
-            if(!(obj instanceof Map.Entry))
+        public boolean equals(Object o) {
+            if(!(o instanceof Map.Entry))
                 return false;
-            Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
-            return Objects.equals(key, other.getKey()) && Objects.equals(value, other.getValue());
+            Map.Entry<?, ?> a = (Map.Entry<?, ?> ) o;
+            return Objects.equals(key, a.getKey()) &&
+                    Objects.equals(value, a.getValue());
         }
-
-        @Override
         public int hashCode() {
-            return super.hashCode();
+            return Objects.hash(key, value);
         }
     }
 
+    @Override
+    public Set entrySet() {
+        return new HashSet(dict);
+    }
 
+    @Override
+    public int size() {
+        return dict.size();
+    }
+
+    @Override
+    public V put(K key, V value) {
+        for (ArrayMapEntry<K, V> d : dict)
+            if (Objects.equals(d.getKey(), key))
+                return d.setValue(value);
+        dict.add(new ArrayMapEntry<>(key, value));
+        return null;
+    }
 }
