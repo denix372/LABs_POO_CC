@@ -9,11 +9,11 @@ public class Problema3 {
 
     public void myRead() throws NumarNegativ {
         Scanner sc = new Scanner(System.in);
-        int x = 0;
+        int x = sc.nextInt();
 
         while(x > -1) {
-            x = sc.nextInt();
             v.add(x);
+            x = sc.nextInt();
         }
 
         throw new NumarNegativ("Numarul introdus e negativ!");
@@ -28,8 +28,12 @@ public class Problema3 {
         } finally {
             System.out.println(pb.v);
 
-            int maxim = Collections.max(pb.v);
-            System.out.println("Maximul este: " + maxim);
+            if (!pb.v.isEmpty()) {
+                int maxim = Collections.max(pb.v);
+                System.out.println("Maximul este: " + maxim);
+            } else {
+                System.out.println("Vectorul este gol, nu exista maxim");
+            }
         }
     }
 }
