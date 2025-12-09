@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 public class Test3 {
     public static void main(String[] args) {

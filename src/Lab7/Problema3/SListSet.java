@@ -63,15 +63,6 @@ public class SListSet extends LinkedList<Object> implements SortedSet<Object> {
 
     @Override
     public SortedSet subSet(Object from, Object to) { // copie ordonată a intervalului [from, to)
-        if (from == null || to == null) {
-            throw new IllegalArgumentException("Capetele intervalului nu pot fi null");
-        }
-        if (cmp == null) {
-            if (!(from instanceof Comparable) || !(to instanceof Comparable)) {
-                throw new ClassCastException("Capetele intervalului trebuie să fie Comparable dacă comparatorul este null");
-            }
-        }
-
         SListSet subset = new SListSet(cmp);
         for (Object obj : this) {
             int compFrom;
@@ -93,13 +84,6 @@ public class SListSet extends LinkedList<Object> implements SortedSet<Object> {
 
     @Override
     public SortedSet headSet(Object to) { // copie ordonată a intervalului (primul_element, to)
-        if (to == null) {
-            throw new IllegalArgumentException("Capătul intervalului nu poate fi null");
-        }
-        if (cmp == null && !(to instanceof Comparable)) {
-            throw new ClassCastException("Capătul intervalului trebuie să fie Comparable dacă comparatorul este null");
-        }
-
         SListSet head = new SListSet(cmp);
         for (Object obj : this) {
             int compTo;
@@ -117,13 +101,6 @@ public class SListSet extends LinkedList<Object> implements SortedSet<Object> {
 
     @Override
     public SortedSet tailSet(Object from) { // copie ordonată a intervalului [from, ultimul_element)
-        if (from == null) {
-            throw new IllegalArgumentException("Capătul intervalului nu poate fi null");
-        }
-        if (cmp == null && !(from instanceof Comparable)) {
-            throw new ClassCastException("Capătul intervalului trebuie să fie Comparable dacă comparatorul este null");
-        }
-
         SListSet tail = new SListSet(cmp);
         for (Object obj : this) {
             int compFrom;
@@ -144,21 +121,10 @@ public class SListSet extends LinkedList<Object> implements SortedSet<Object> {
     public SListSet reversed() { // întoarce o copie a mulțimii ordonată descrescător, construită pe baza comparatorului curent (dacă există) sau a ordinii naturale; populați exclusiv din elementele setului curent, fără recitirea fișierului și fără sortări/inversări externe.
         Comparator<Object> reversedCmp;
 
-        if (cmp != null) {
-            reversedCmp = new Comparator<Object>() {
-                @Override
-                public int compare(Object o1, Object o2) {
-                    return cmp.compare(o2, o1); // inversăm ordinea comparatorului curent
-                }
-            };
-        } else {
-            reversedCmp = new Comparator<Object>() {
-                @Override
-                public int compare(Object o1, Object o2) {
-                    return ((Comparable) o2).compareTo(o1); // inversăm ordinea naturală
-                }
-            };
-        }
+        if (cmp != null)
+            reversedCmp = new ReverseComparator(cmp);
+        else
+            reversedCmp = new NaturalComparator();
 
         SListSet reversedSet = new SListSet(reversedCmp);
         for (Object obj : this) {
